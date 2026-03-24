@@ -129,6 +129,8 @@ wss.on("connection", (ws) => {
       case "zombie_spawn": {
         const zid = nextZid++;
         zombies.set(zid, { room: c.room, type: msg.ztype, x: msg.x, z: msg.z, health: msg.health || 100 });
+        console.log(`[zombie_spawn] room=${c.room} zid=${zid} type=${msg.ztype}`);
+        // Надсилаємо всім в кімнаті ВКЛЮЧНО з хостом щоб він знав реальний zid
         broadcastAll(c.room, { type: "zombie_spawn", zid, ztype: msg.ztype, x: msg.x, z: msg.z, health: msg.health || 100 });
         break;
       }
